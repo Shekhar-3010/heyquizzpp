@@ -10,15 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Heyquizzpp">
         <activity
-            android:name=".quizquestionactivity"
+            android:name=".resultactivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            >
-
+            android:theme="@style/Noactionbartheme"
+            />
+        <activity
+            android:name=".quizquestionactivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
 
         </activity>
-
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -32,4 +34,5 @@
             </intent-filter>
         </activity>
     </application>
-    </manifest>
+
+</manifest>

@@ -1,6 +1,9 @@
 package com.example.heyquizzpp
 
 object  Constants{
+    const val user_name : String="user_name"
+    const val total_questions:String="total_questions"
+    const val correctanswers: String="correctanswers"
     fun getquestions():ArrayList<Question>
     {
         val questionlist = ArrayList<Question>()
@@ -110,7 +113,7 @@ object  Constants{
             "wolf ",
             "sheep",
             "rhino",
-            3
+            4
         )
 
         questionlist.add(q10)

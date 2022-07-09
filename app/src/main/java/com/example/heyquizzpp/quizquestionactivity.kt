@@ -1,5 +1,6 @@
 package com.example.heyquizzpp
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -14,17 +15,20 @@ import kotlinx.android.synthetic.main.activity_quizquestionactivity.*
 class quizquestionactivity : AppCompatActivity() ,View.OnClickListener{
     private var mcurrentposition:Int=1//position of first question
     private var mquestionlist : ArrayList<Question>?=null
-    private var mselectedoptionposition:Int =0
+    private var mselectedoptionposition:Int = 0
+    private  var mcorrectanswer:Int =0
+    private  var musername:String?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quizquestionactivity)
+         musername=intent.getStringExtra(Constants.user_name)
         mquestionlist=Constants.getquestions()
         setquestion()
         optionone.setOnClickListener(this)
-        optionone.setOnClickListener(this)
-        optionone.setOnClickListener(this)
-        optionone.setOnClickListener(this)
+        optiontwo.setOnClickListener(this)
+        optionthree.setOnClickListener(this)
+        optionfour.setOnClickListener(this)
         submitbutton.setOnClickListener(this)
 
 
@@ -61,9 +65,14 @@ class quizquestionactivity : AppCompatActivity() ,View.OnClickListener{
                         mcurrentposition<=mquestionlist!!.size->
                         {
                             setquestion()
-                        }else ->
-                    {
-                        Toast.makeText(this , "you have sucessfully completed the quiz ",Toast.LENGTH_SHORT).show()
+                        }else -> {
+                           val intent=Intent(this,resultactivity::class.java)
+                           intent.putExtra(Constants.user_name,musername)
+                            intent.putExtra(Constants.correctanswers,mcorrectanswer)
+                           intent.putExtra(Constants.total_questions,mquestionlist!!.size)
+                           startActivity(intent)
+
+
                     }
 
 
@@ -73,8 +82,12 @@ class quizquestionactivity : AppCompatActivity() ,View.OnClickListener{
                     val question=mquestionlist?.get(mcurrentposition-1)
                     if(question!!.correctanswer!=mselectedoptionposition){
                         answerview(mselectedoptionposition,R.drawable.worngoptionbg)
+                    }else{
+                        mcorrectanswer++
                     }
-                    answerview(question.correctanswer,R.drawable.correctoptionbg)
+                    answerview(question.correctanswer, R.drawable.correctoptionbg)
+
+
                     if(mcurrentposition==mquestionlist!!    .size)
                     {
                         submitbutton.text="Finish"
